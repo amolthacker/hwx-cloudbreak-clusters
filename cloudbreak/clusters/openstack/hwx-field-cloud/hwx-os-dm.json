@@ -1,0 +1,102 @@
+{
+    "general": {
+        "name": "hwx-os-dm",
+        "credentialName": "hwx-field-cloud"
+    },
+    "tags": {
+        "userDefinedTags": {}
+    },
+    "placement": {
+        "availabilityZone": "SE",
+        "region": "RegionOne"
+    },
+    "customDomain": {
+        "customDomain": "field.hortonworks.com",
+        "customHostname": "hwx-dm"
+    },
+    "cluster": {
+        "ambari": {
+            "userName": "admin",
+            "password": "admin",
+            "blueprintName": "Data Management: Apache Atlas, Apache Ranger",
+            "ambariRepoDetailsJson": {
+                "version": "2.6.1.3",
+                "baseUrl": "http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.6.1.3",
+                "gpgKeyUrl": "http://public-repo-1.hortonworks.com/ambari/centos7/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins"
+            },
+            "ambariStackDetails": {
+                "stack": "HDP",
+                "version": "2.6",
+                "verify": false,
+                "enableGplRepo": false,
+                "repositoryVersion": "2.6.4.5-2",
+                "versionDefinitionFileUrl": "http://private-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.4.5-2/HDP-2.6.4.5-2.xml"
+            },
+            "gateway": {
+                "enableGateway": false,
+                "gatewayType": "INDIVIDUAL"
+            },
+            "validateBlueprint": false,
+            "ambariSecurityMasterKey": ""
+        }
+    },
+    "imageSettings": {
+        "imageId": "fb57e3aa-fddd-45bd-68a8-bc2526ab0f56",
+        "imageCatalog": "cloudbreak-default"
+    },
+    "instanceGroups": [
+        {
+            "parameters": {},
+            "template": {
+                "parameters": {
+                    "encrypted": false
+                },
+                "instanceType": "m3.xlarge",
+                "volumeType": "HDD",
+                "volumeCount": 0,
+                "volumeSize": 50
+            },
+            "nodeCount": 1,
+            "group": "master",
+            "type": "GATEWAY",
+            "recoveryMode": "MANUAL",
+            "recipeNames": [
+                "ranger-db-setup",
+                "restart-atlas"
+            ],
+            "securityGroup": {
+                "securityGroupId": "12f286c3-5c42-43e0-8320-31b4a94cc226"
+            }
+        },
+        {
+            "parameters": {},
+            "template": {
+                "parameters": {
+                    "encrypted": false
+                },
+                "instanceType": "m3.large",
+                "volumeType": "HDD",
+                "volumeCount": 0,
+                "volumeSize": 50
+            },
+            "nodeCount": 2,
+            "group": "worker",
+            "type": "CORE",
+            "recoveryMode": "MANUAL",
+            "recipeNames": [],
+            "securityGroup": {
+                "securityGroupId": "12f286c3-5c42-43e0-8320-31b4a94cc226"
+            }
+        }
+    ],
+    "network": {
+        "parameters": {
+            "subnetId": "aa7c8bb9-0152-46b9-8596-935baca704a0",
+            "networkingOption": "provider",
+            "networkId": "71a870bb-191c-4abe-bf02-ece2e9b3345c"
+        }
+    },
+    "stackAuthentication": {
+        "publicKeyId": "field"
+    }
+}

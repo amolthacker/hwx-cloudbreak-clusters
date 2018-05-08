@@ -1,0 +1,383 @@
+{
+    "Blueprints": {
+        "blueprint_name": "hdp26-data-mgmnt",
+        "stack_name": "HDP",
+        "stack_version": "2.6"
+    },
+    "settings": [
+        {
+            "recovery_settings": [
+                {
+                    "recovery_enabled": "true"
+                }
+            ]
+        },
+        {
+            "service_settings": [
+                {
+                    "recovery_enabled": "true",
+                    "name": "HIVE"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "MAPREDUCE2"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "SPARK2"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "YARN"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "SQOOP"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "PIG"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "ZOOKEEPER"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "HDFS"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "TEZ"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "AMBARI_METRICS"
+                }
+            ]
+        },
+        {
+            "component_settings": [
+                {
+                    "recovery_enabled": "true",
+                    "name": "ZOOKEEPER_SERVER"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "SECONDARY_NAMENODE"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "METRICS_MONITOR"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "WEBHCAT_SERVER"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "SPARK2_JOBHISTORYSERVER"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "SQOOP"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "PIG"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "MAPREDUCE2_CLIENT"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "YARN_CLIENT"
+                },
+                {
+                    "recovery_enabled": "true",
+                    "name": "TEZ_CLIENT"
+                }
+            ]
+        }
+    ],
+    "configurations": [
+        {
+            "core-site": {
+                "hadoop.proxyuser.root.users": "admin",
+                "fs.trash.interval": "4320"
+            }
+        },
+        {
+            "hdfs-site": {
+                "dfs.namenode.safemode.threshold-pct": "0.99"
+            }
+        },
+        {
+            "hive-site": {
+                "hive.exec.compress.output": "true",
+                "hive.merge.mapfiles": "true",
+                "hive.server2.tez.initialize.default.sessions": "true",
+                "hive.server2.transport.mode": "http",
+                "hive.server2.enable.doAs": "true",
+                "hive.exec.post.hooks": "org.apache.hadoop.hive.ql.hooks.ATSHook,org.apache.atlas.hive.hook.HiveHook"
+            }
+        },
+        {
+            "mapred-site": {
+                "mapreduce.job.reduce.slowstart.completedmaps": "0.7",
+                "mapreduce.map.output.compress": "true",
+                "mapreduce.output.fileoutputformat.compress": "true"
+            }
+        },
+        {
+            "yarn-site": {
+                "yarn.acl.enable": "true"
+            }
+        },
+        {
+            "ams-site": {
+                "timeline.metrics.cache.size": "100"
+            }
+        },
+        {
+            "ams-hbase-site": {
+              "properties": {
+                "hbase.cluster.distributed": "true",
+                "hbase.rootdir": "file:///hadoopfs/fs1/metrics/hbase/data"
+              }
+            }
+        },
+        {
+            "admin-properties": {
+                "properties_attributes": {},
+                "properties": {
+                    "DB_FLAVOR": "POSTGRES",
+                    "SQL_CONNECTOR_JAR": "/usr/share/java/postgresql-jdbc.jar",
+                    "db_host": "localhost",
+                    "audit_db_password": "rangerlogger",
+                    "db_root_user": "ambari",
+                    "db_root_password": "bigdata",
+                    "db_password": "rangeradmin",
+                    "policymgr_external_url": "http://%HOSTGROUP::master%:6080"
+                }
+            }
+        },
+        {
+            "ranger-admin-site": {
+                "properties_attributes": {},
+                "properties": {
+                    "ranger.audit.source.type" : "solr",
+                    "ranger.audit.solr.zookeepers" : "localhost:2181/infra-solr",
+                    "ranger.jpa.jdbc.driver": "org.postgresql.Driver",
+                    "ranger.jpa.jdbc.url": "jdbc:postgresql://localhost:5432/ranger"
+                }
+            }
+        },
+        {
+            "ranger-env": {
+                "properties_attributes": {},
+                "properties": {
+                    "ranger_user": "ranger",
+                    "ranger_group": "ranger",
+                    "admin_username": "admin",
+                    "ranger_admin_username": "admin",
+                    "ranger_admin_password": "admin",
+                    "ranger-hdfs-plugin-enabled": "Yes",
+                    "ranger-hbase-plugin-enabled": "Yes",
+                    "ranger-hive-plugin-enabled": "Yes",
+                    "ranger-yarn-plugin-enabled": "Yes",
+                    "ranger-atlas-plugin-enabled": "Yes",
+                    "ranger-storm-plugin-enabled": "No",
+                    "ranger-kafka-plugin-enabled": "No",
+                    "ranger-knox-plugin-enabled": "No",
+                    "xasecure.audit.destination.db": "false",
+                    "xasecure.audit.destination.solr": "true",
+                    "xasecure.audit.destination.hdfs": "true",
+                    "is_solrCloud_enabled": "true",
+                    "xasecure.audit.destination.hdfs.dir": "hdfs://%HOSTGROUP::master%:8020/ranger/audit",
+                    "xasecure.audit.destination.solr.zookeepers": "localhost:2181/infra-solr",
+                    "ranger_privelege_user_jdbc_url": "jdbc:postgresql://localhost:5432/postgres",
+                    "ranger_usersync_log_dir": "/var/log/ranger/usersync"
+                }
+            }
+        },
+        {
+            "ranger-hive-audit": {
+                "xasecure.audit.is.enabled": "true",
+                "xasecure.audit.destination.hdfs": "true",
+                "xasecure.audit.destination.solr": "true",
+                "xasecure.audit.destination.solr.zookeepers": "localhost:2181/infra-solr"
+            }
+        },
+        {
+            "atlas-env": {
+              "properties": {
+                "atlas_solr_shards": "2",
+                "hbase_conf_dir": "/etc/ams-hbase/conf",
+                "content": "\n      # The java implementation to use. If JAVA_HOME is not found we expect java and jar to be in path\n      export JAVA_HOME={{java64_home}}\n\n      # any additional java opts you want to set. This will apply to both client and server operations\n      {% if security_enabled %}\n      export ATLAS_OPTS=\"{{metadata_opts}} -Djava.security.auth.login.config={{atlas_jaas_file}}\"\n      {% else %}\n      export ATLAS_OPTS=\"{{metadata_opts}}\"\n      {% endif %}\n\n      # metadata configuration directory\n      export ATLAS_CONF={{conf_dir}}\n\n      # Where log files are stored. Defatult is logs directory under the base install location\n      export ATLAS_LOG_DIR={{log_dir}}\n\n      # additional classpath entries\n      export ATLASCPPATH={{metadata_classpath}}\n\n      # data dir\n      export ATLAS_DATA_DIR={{data_dir}}\n\n      # pid dir\n      export ATLAS_PID_DIR={{pid_dir}}\n\n      # hbase conf dir\n      export HBASE_CONF_DIR=\"/etc/ams-hbase/conf\"\n\n      # Where do you want to expand the war file. By Default it is in /server/webapp dir under the base install dir.\n      export ATLAS_EXPANDED_WEBAPP_DIR={{expanded_war_dir}}\n      export ATLAS_SERVER_OPTS=\"-server -XX:SoftRefLRUPolicyMSPerMB=0 -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+PrintTenuringDistribution -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$ATLAS_LOG_DIR/atlas_server.hprof -Xloggc:$ATLAS_LOG_DIRgc-worker.log -verbose:gc -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1m -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCTimeStamps\"\n      {% if java_version == 8 %}\n      export ATLAS_SERVER_HEAP=\"-Xms{{atlas_server_xmx}}m -Xmx{{atlas_server_xmx}}m -XX:MaxNewSize={{atlas_server_max_new_size}}m -XX:MetaspaceSize=100m -XX:MaxMetaspaceSize=512m\"\n      {% else %}\n      export ATLAS_SERVER_HEAP=\"-Xms{{atlas_server_xmx}}m -Xmx{{atlas_server_xmx}}m -XX:MaxNewSize={{atlas_server_max_new_size}}m -XX:MaxPermSize=512m\"\n      {% endif %}\n"
+              }
+            }
+        }
+    ],
+    "host_groups": [
+        {
+            "name": "master",
+            "cardinality": "1",
+            "configurations": [],
+            "components": [
+                {
+                    "name": "RANGER_TAGSYNC"
+                },
+                {
+                    "name": "HIVE_SERVER"
+                },
+                {
+                    "name": "SPARK2_CLIENT"
+                },
+                {
+                    "name": "METRICS_MONITOR"
+                },
+                {
+                    "name": "INFRA_SOLR_CLIENT"
+                },
+                {
+                    "name": "HBASE_MASTER"
+                },
+                {
+                    "name": "HIVE_METASTORE"
+                },
+                {
+                    "name": "TEZ_CLIENT"
+                },
+                {
+                    "name": "ATLAS_SERVER"
+                },
+                {
+                    "name": "ZOOKEEPER_CLIENT"
+                },
+                {
+                    "name": "HCAT"
+                },
+                {
+                    "name": "SPARK2_JOBHISTORYSERVER"
+                },
+                {
+                    "name": "WEBHCAT_SERVER"
+                },
+                {
+                    "name": "KAFKA_BROKER"
+                },
+                {
+                    "name": "RANGER_ADMIN"
+                },
+                {
+                    "name": "SECONDARY_NAMENODE"
+                },
+                {
+                    "name": "SLIDER"
+                },
+                {
+                    "name": "ZOOKEEPER_SERVER"
+                },
+                {
+                    "name": "JOURNALNODE"
+                },
+                {
+                    "name": "METRICS_COLLECTOR"
+                },
+                {
+                    "name": "YARN_CLIENT"
+                },
+                {
+                    "name": "HDFS_CLIENT"
+                },
+                {
+                    "name": "SQOOP"
+                },
+                {
+                    "name": "HISTORYSERVER"
+                },
+                {
+                    "name": "NAMENODE"
+                },
+                {
+                    "name": "PIG"
+                },
+                {
+                    "name": "MAPREDUCE2_CLIENT"
+                },
+                {
+                    "name": "ATLAS_CLIENT"
+                },
+                {
+                    "name": "AMBARI_SERVER"
+                },
+                {
+                    "name": "HBASE_CLIENT"
+                },
+                {
+                    "name": "INFRA_SOLR"
+                },
+                {
+                    "name": "RANGER_USERSYNC"
+                },
+                {
+                    "name": "APP_TIMELINE_SERVER"
+                },
+                {
+                    "name": "HIVE_CLIENT"
+                },
+                {
+                    "name": "RESOURCEMANAGER"
+                }
+            ]
+        },
+        {
+            "name": "worker",
+            "cardinality": "1+",
+            "configurations": [],
+            "components": [
+                {
+                    "name": "NODEMANAGER"
+                },
+                {
+                    "name": "YARN_CLIENT"
+                },
+                {
+                    "name": "HDFS_CLIENT"
+                },
+                {
+                    "name": "SPARK2_CLIENT"
+                },
+                {
+                    "name": "METRICS_MONITOR"
+                },
+                {
+                    "name": "INFRA_SOLR_CLIENT"
+                },
+                {
+                    "name": "TEZ_CLIENT"
+                },
+                {
+                    "name": "SLIDER"
+                },
+                {
+                    "name": "ATLAS_CLIENT"
+                },
+                {
+                    "name": "HBASE_REGIONSERVER"
+                },
+                {
+                    "name": "DATANODE"
+                },
+                {
+                    "name": "HBASE_CLIENT"
+                },
+                {
+                    "name": "HIVE_CLIENT"
+                }
+            ]
+        }
+    ]
+}

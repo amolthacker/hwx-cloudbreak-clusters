@@ -1,0 +1,114 @@
+{
+    "general": {
+        "name": "hwx-aws-dm",
+        "credentialName": "hwx-aws"
+    },
+    "placement": {
+        "availabilityZone": "us-east-1a",
+        "region": "us-east-1"
+    },
+    "parameters": {},
+    "customDomain": {
+        "clusterNameAsSubdomain": false,
+        "hostgroupNameAsHostname": false
+    },
+    "tags": {
+        "userDefinedTags": {
+            "Owner": "admin@example.com",
+            "Business Unit": "Engineering",
+            "Service": "Data Management",
+            "Product": "DPS Cloudbreak HDP Kafka Atlas Ranger",
+            "End Date": "3i May 2018",
+            "Hours of Operation": "Business EST",
+            "Business Justification": "CUSTOMER",
+            "Customer": "CUSTOMER"
+        }
+    },
+    "instanceGroups": [
+        {
+            "nodeCount": 1,
+            "group": "master",
+            "type": "GATEWAY",
+            "parameters": {},
+            "template": {
+                "volumeCount": 1,
+                "volumeSize": 50,
+                "parameters": {
+                    "encrypted": false
+                },
+                "volumeType": "standard",
+                "instanceType": "m4.xlarge"
+            },
+            "securityGroup": {
+                "securityGroupId": "sg-be2615cf",
+                "securityRules": []
+            },
+            "recipeNames": [
+                "ranger-db-setup-aws",
+                "restart-atlas"
+            ],
+            "recoveryMode": "MANUAL"
+        },
+        {
+            "nodeCount": 1,
+            "group": "worker",
+            "type": "CORE",
+            "parameters": {},
+            "template": {
+                "volumeCount": 1,
+                "volumeSize": 50,
+                "parameters": {
+                    "encrypted": false
+                },
+                "volumeType": "standard",
+                "instanceType": "m4.large"
+            },
+            "securityGroup": {
+                "securityGroupId": "sg-be2615cf",
+                "securityRules": []
+            },
+            "recipeNames": [],
+            "recoveryMode": "MANUAL"
+        }
+    ],
+    "stackAuthentication": {
+        "publicKeyId": "athacker"
+    },
+    "network": {
+        "parameters": {
+            "subnetId": "subnet-0b34477c",
+            "vpcId": "vpc-d85076bd"
+        }
+    },
+    "imageSettings": {
+        "imageCatalog": "cloudbreak-default",
+        "imageId": "433025f0-16bb-4b83-5ef7-fb795a9fc8ab"
+    },
+    "cluster": {
+        "emailNeeded": false,
+        "ambari": {
+            "blueprintName": "Data Management: Apache Atlas, Apache Ranger",
+            "enableSecurity": false,
+            "userName": "admin",
+            "password": "admin",
+            "ambariStackDetails": {
+                "stack": "HDP-2.6",
+                "version": "2.6.4.5-2",
+                "os": "redhat6",
+                "stackRepoId": "HDP-2.6",
+                "stackBaseURL": "http://private-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.6.4.5-2",
+                "utilsRepoId": "HDP-UTILS-1.1.0.22",
+                "utilsBaseURL": "http://private-repo-1.hortonworks.com/HDP-UTILS-1.1.0.22/repos/centos6",
+                "enableGplRepo": false,
+                "verify": true,
+                "repositoryVersion": "2.6.4.5-2",
+                "versionDefinitionFileUrl": "http://private-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.6.4.5-2/HDP-2.6.4.5-2.xml"
+            },
+            "ambariRepoDetailsJson": {
+                "version": "2.6.1.3",
+                "baseUrl": "http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.6.1.3"
+            },
+            "blueprintInputs": []
+        }
+    }
+}
