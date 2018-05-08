@@ -14,8 +14,8 @@ Automated provisioning of HWX (HDP/HDF) clusters in public/private cloud using H
  1. Clone the repo
  
  2. Update cloud configurations
-    - under `clusters/aws/hwx/hwx-aws-dm.json` for AWS [HWX AWS a/c]
-    - under `clusters/openstack/hwx-field-cloud/hwx-os-dm.json` for OpenStack [HWX private cloud on OpenStack for Field engg]
+    - under `clusters/aws/hwx/hwx-aws-dm.json` for AWS
+    - under `clusters/openstack/hwx-field-cloud/hwx-os-dm.json` for OpenStack
    especially:
    ```
     general.credentialName                  // credential to use as configured in Cloudbreak
