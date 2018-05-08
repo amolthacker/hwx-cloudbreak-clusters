@@ -31,11 +31,11 @@ Automated provisioning of HWX (HDP/HDF) clusters in public/private cloud using H
    
    If running for the first time, run
    ```
-   $  ./scripts/import-artifacts-n-create-cluster.sh <CLOUD> [CLOUD => 'openstack' or 'aws']
+   $  ./scripts/import-artifacts-n-create-cluster.sh <CLOUD> [where CLOUD => 'openstack' or 'aws']
    ```
-   This will first import the blueprint (under `blueprints/`) and recipes (under `recipes`) into Cloudbreak and then create the cluster
+   This will first import the blueprint (under `cloudbreak/blueprints`) and recipes (under `cloudbreak/recipes`) into Cloudbreak and then create the cluster
 
    If the blueprints and recipes have already been imported, run
    ```
-   $  ./scripts/create-cluster.sh <CLOUD> [CLOUD => 'openstack' or 'aws']
+   $  ./scripts/create-cluster.sh <CLOUD>
    ```
