@@ -7,7 +7,7 @@ Automated provisioning of HWX (HDP/HDF) clusters in public/private cloud using H
  * Access to [Hortonworks Cloudbreak 2.4.1](https://docs.hortonworks.com/HDPDocuments/Cloudbreak/Cloudbreak-2.4.1/content/index.html) instance setup with credentials for respective cloud providers
  * [Cloudbreak CLI](https://docs.hortonworks.com/HDPDocuments/Cloudbreak/Cloudbreak-2.4.1/content/cli-install/index.html) installed, in path and configured to point to the Cloudbreak instance
 
- You can also use this [tool to setup a local instance of Cloudbreak with a configured CLI](https://github.com/amolthacker/hwx-local-cloudbreak)
+ You can also use [this tool](https://github.com/amolthacker/hwx-local-cloudbreak) to setup a local instance of Cloudbreak with a configured CLI
 
 ## Steps
 
