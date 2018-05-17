@@ -1,6 +1,6 @@
 # HWX Clusters with Cloudbreak
 
-Automated provisioning of HWX (HDP/HDF) clusters in public/private cloud using Hortonworks Cloudbreak
+Automated provisioning of custom HWX (HDP/HDF) clusters in public/private cloud using Hortonworks Cloudbreak
 
 ## Prerequisites
 
